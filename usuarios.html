@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Asistente BOT| Usuarios</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
+    <script src='js/usuario.js'></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+</head>
+
+<body onload="cargarInformacion();">
+    <!-- The Modal -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h3 class="modal-title">Informacion del estudiante</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="divEstudiante">
+                        <p>ID</p>
+                        <input type="text" id="txtId" class="form-control" placeholder="Escribe un texto...">
+                    </div>
+                    <br/>
+                    <p>Nombres Estudiante</p>
+                    <input type="text" id="txtNombre" required="required" class="form-control" placeholder="Escribe un texto...">
+                    <br/>
+                    <p>Apellidos Estudiante</p>
+                    <input type="text" id="txtApellido" required="required" class="form-control" placeholder="Escribe un texto...">
+                    <br/>
+                    <p>Email</p>
+                    <input type="text" id="txtEmail" required="required" class="form-control" placeholder="Escribe un texto...">
+                    <br/>
+                    <p>Disponibilidad</p>
+                    <select style="width:30%" id="ddlDisponibilidad" class="form-select" placeholder="Seleccionar..." id="ddlContenidoAdulto">
+                    <option value="SI">SI</option>
+                    <option value="NO">NO</option>
+                </select>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" id="btnAdd" class="btn btn-danger" onclick="eliminarEstudiante();">Eliminar</button>
+                    <button type="button" id="btnAdd" class="btn btn-primary" onclick="registrarEstudiante();">Guardar Informacion</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <br/>
+        <div class="row">
+            <h4>Listado de Estudiantes Inscritos</h4>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="card" style="width: 60rem;">
+                <div class="card-body">
+                    <label id="lblRegistros"></label>
+                    <button class="btn btn-primary" onclick="abrirModal();" id="btnAdd">Agregar Estudiante</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

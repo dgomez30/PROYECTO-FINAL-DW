@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="es" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Asistente BOT | Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/png" href="asserts/logo_umg.jpeg" sizes="16x16">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</head>
+
+<body onload="redireccionamiento();">
+    <div class="sidebar active">
+        <div class="logo_content">
+            <div class="logo">
+                <i class='bx bxl-c-plus-plus'></i>
+                <div class="logo_name">Asistente BOT</div>
+            </div>
+            <i class='bx bx-menu' id="btn"></i>
+        </div>
+        <ul class="nav_list">
+            <li>
+                <a href="?view=usuarios">
+                    <i class='bx bx-user'></i>
+                    <span class="links_name">Usuarios</span>
+                </a>
+                <span class="tooltip">Usuarios</span>
+            </li>
+            <li>
+                <a href="?view=cursos">
+                    <i class='bx bx-chat'></i>
+                    <span class="links_name">Cursos</span>
+                </a>
+                <span class="tooltip">Cursos</span>
+            </li>
+            <li>
+                <a href="?view=cursosAsignados">
+                    <i class='bx bx-folder'></i>
+                    <span class="links_name">Cursos Asignados</span>
+                </a>
+                <span class="tooltip">Cursos Asignados</span>
+            </li>
+            <li>
+                <a href="?view=cargarInformacion">
+                    <i class='bx bx-cog'></i>
+                    <span class="links_name">Cargar Infomacion</span>
+                </a>
+                <span class="tooltip">Cargar Infomacion</span>
+            </li>
+            <li>
+                <a href="?view=salir">
+                    <i class='bx bx-pie-chart-alt-2'></i>
+                    <span class="links_name">Salir</span>
+                </a>
+                <span class="tooltip">Salir</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Contenido -->
+    <div class="home_content" style="background-color: beige;">
+        <label id="lblContenido"></label>
+    </div>
+
+    <!-- UX -->
+    <script>
+        function redireccionamiento() {
+            var token = sessionStorage.getItem('token');
+
+            if (token === null || token === '') {
+                window.location.href = 'login.html';
+            }
+
+            const queryString = window.location.search;
+
+            if (queryString === null || queryString === "") {
+                return;
+            }
+
+            const parametros = new URLSearchParams(queryString);
+            let iframe = document.getElementById("lblContenido");
+
+            switch (parametros.get('view')) {
+                case "inicio":
+                    iframe.innerHTML = "<iframe width='1135px' height='768px' src='home.html'></iframe>"
+                    break;
+                case "usuarios":
+                    iframe.innerHTML = "<iframe width='1135px' height='768px'  src='usuarios.html'></iframe>"
+                    break;
+                case "cursos":
+                    iframe.innerHTML = "<iframe width='1135px' height='768px' src='cursos.html'></iframe>"
+                    break;
+                case "salir":
+                    window.parent.location.href = 'login.html';
+                    break;
+                case "cursosAsignados":
+                    iframe.innerHTML = "<iframe width='1135px' height='768px' src='cursosAsignados.html'></iframe>"
+                    break;
+                case "cargarInformacion":
+                    iframe.innerHTML = "<iframe width='1135px' height='768px' src='configuracion.html'></iframe>"
+                    break;
+                default:
+                    iframe.innerHTML = "<iframe width='1135px' height='768px' src='notFound.html'></iframe>"
+                    break;
+            }
+        }
+    </script>
+</body>
+
+</html>

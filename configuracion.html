@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Asistente BOT| Cargar Informacion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" media="screen" href="css/main.css" />
+    <!-- <script src="js/cargarInformacion.js"></script> -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <br/>
+        <div class="row">
+            <h4>Plantillas a cargar</h4>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="card" style="width: 60rem;">
+                <div class="card-body">
+                    <table id="tblCursos" class="table ">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre Plantilla</th>
+                                <th>Descripcion</th>
+                                <th>Acccion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>1</th>
+                                <td>Carga Estudiantes</td>
+                                <td>Permite realizar una carga masiva de los estudiantes</td>
+                                <td>
+                                    <input id="upEstudiantes" class="form-control form-control-sm" id="formFileSm" type="file">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>2</th>
+                                <td>Carga Curso</td>
+                                <td>Permite realizar una carga masiva de los cursos asignados</td>
+                                <td>
+                                    <input id="upCursos" class="form-control form-control-sm" id="formFileSm" type="file">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-success" onclick="cargarArchivo();">Cargar Informacion</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function cargarArchivo() {
+            const input = document.getElementById('upEstudiantes').files[0];
+            const inputCurso = document.getElementById('upCursos').files[0];
+
+            if (inputCurso === undefined && input === undefined) {
+                alert("Por favor cargue un archivo para continuar")
+            } else if (inputCurso == null || inputCurso == undefined) {
+                cargarEstudiantes(input);
+                document.getElementById('upEstudiantes').value = '';
+            } else {
+                cargarCursos(inputCurso);
+                document.getElementById('upCursos').value = '';
+            }
+        }
+
+        function cargarEstudiantes(input) {
+            var token = sessionStorage.getItem('token');
+
+            if (token === null || token === '') {
+                window.parent.location.href = 'login.html';
+            }
+            var url = "http://localhost:4004/cargarEstudiantes"
+
+            var data = new FormData()
+            data.append('file', input)
+            data.append('estudiantes', 'estudiantes')
+
+            fetch(url, {
+                    method: 'POST',
+                    body: data
+                })
+                .then(function(response) {
+                    if (response.ok) {
+                        alert("Archivo cargado correctamente")
+                    }
+                })
+                .catch(err => alert("Fallo la carga " + err));
+        }
+
+        function cargarCursos(inputCurso) {
+            var token = sessionStorage.getItem('token');
+
+            if (token === null || token === '') {
+                window.parent.location.href = 'login.html';
+            }
+            var urlCurso = "http://localhost:4004/cargarCursos"
+
+            var data = new FormData()
+            data.append('file', inputCurso)
+            data.append('cursos', 'file')
+
+            fetch(urlCurso, {
+                    method: 'POST',
+                    body: data
+                })
+                .then(function(response) {
+                    if (response.ok) {
+                        alert("Archivo cargado correctamente")
+                    }
+                })
+                .catch(err => alert("Fallo la carga " + err));
+        }
+    </script>
+</body>
+
+</html>
